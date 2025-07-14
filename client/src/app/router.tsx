@@ -13,7 +13,6 @@ import ReleasesRoute from './routes/releases';
 import ReleaseRoute from './routes/release';
 import NotFoundRoute from './routes/not-found';
 
-
 const createAppRouter = () =>
   createBrowserRouter([
     { 
