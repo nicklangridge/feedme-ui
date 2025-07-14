@@ -2,10 +2,11 @@ import { QueryClient, QueryClientProvider, type DefaultOptions } from '@tanstack
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import * as React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-
+import { ThemeProvider } from '@mui/material/styles';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
+import theme from '@/theme';
 import { MainErrorFallback } from '@/components/errors/main';
 
 type AppProviderProps = {
@@ -36,7 +37,9 @@ export const AppProvider = ({ children }: AppProviderProps) => {
       <ErrorBoundary FallbackComponent={MainErrorFallback}>
         <QueryClientProvider client={queryClient}>
           {import.meta.env.DEV && <ReactQueryDevtools />}
+          <ThemeProvider theme={theme}>
           {children}
+          </ThemeProvider>
         </QueryClientProvider>
       </ErrorBoundary>
     </React.Suspense>

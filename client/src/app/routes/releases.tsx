@@ -4,7 +4,7 @@ const ReleasesRoute = () => {
   return (
     <>
       <h1>Latest Releases</h1>
-      <Button variant="contained">Hello world</Button>
+      <Button variant="outlined">Hello world</Button>
     </>
   );
 };

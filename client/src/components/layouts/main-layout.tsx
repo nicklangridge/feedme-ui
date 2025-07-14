@@ -1,18 +1,16 @@
 import CssBaseline from '@mui/material/CssBaseline';
 
+import MainAppBar from '@/components/ui/main-app-bar';
+import Container from '@mui/material/Container';
+
 export function MainLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <CssBaseline />
-      <div className="main-layout">
-        <header>
-          <h1>FeedMe UI</h1>
-        </header>
-        <main>{children}</main>
-        <footer>
-          <p>footer</p>
-        </footer>
-      </div>
+      <MainAppBar />
+      <Container sx={{ my: 10 }}>
+        {children}
+      </Container>
     </>
   );
 }
