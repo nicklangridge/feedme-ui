@@ -1,4 +1,3 @@
-// axios or fetch??
 import Axios from 'axios';
 import { env } from '@/config/env';
 

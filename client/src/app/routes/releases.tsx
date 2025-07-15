@@ -1,10 +1,9 @@
-import Button from '@mui/material/Button';
+import ReleasesList from '@/features/releases/components/releases-list';
 
 const ReleasesRoute = () => {
   return (
     <>
-      <h1>Latest Releases</h1>
-      <Button variant="outlined">Hello world</Button>
+      <ReleasesList />
     </>
   );
 };
