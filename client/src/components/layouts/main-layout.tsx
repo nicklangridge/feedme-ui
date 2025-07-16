@@ -8,7 +8,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
     <>
       <CssBaseline />
       <MainAppBar />
-      <Container sx={{ my: 10 }}>
+      <Container maxWidth={'xl'}  sx={{ my: 6, contentJustify: 'center', }}>
         {children}
       </Container>
     </>
