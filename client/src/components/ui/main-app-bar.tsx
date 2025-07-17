@@ -28,7 +28,7 @@ export default function MainAppBar() {
         [`@media (max-width: ${gridWidth(2)}px)`]: { width: `${gridWidth(1)}px` }
       }}>
         <IconButton
-            size="extra-large"
+            size="large"
             edge="start"
             color="inherit"
             aria-label="menu"

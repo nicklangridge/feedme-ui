@@ -4,34 +4,11 @@ const themeOptions: ThemeOptions = {
   palette: {
     mode: 'light',
     primary: {
-      main: '#dddddd',
-      light: '#eeeeee',
-      dark: '#cccccc'
+      main: '#999999',
     },
     secondary: {
-      main: '#07ab64',
-      light: '#16ca7cff',
-      dark: '#078b52ff'
-    },
-    error: {
-      main: '#d32f2f',
-      light: '#ef5350',
-      dark: '#c62828'
-    },
-    warning: {
-      main: '#ed6c02',
-      light: '#ff9800',
-      dark: '#e65100'
-    },
-    info: {
-      main: '#0288d1',
-      light: '#03a9f4',
-      dark: '#01579b'
-    },
-    success: {
-      main: '#2e7d32',
-      light: '#4caf50',
-      dark: '#1b5e20'
+      main: '#aaaaaa',
+      contrastText: '#ffffff',
     },
     grey: {
       50: '#fafafa',
@@ -90,8 +67,31 @@ const themeOptions: ThemeOptions = {
     MuiButton: {
       defaultProps: {
         disableElevation: true,
+      },
+      styleOverrides: {
+        root: {
+          textTransform: 'capitalize'
+        }
       }
-    }
+    },
+    MuiTypography: {
+      styleOverrides: {
+        h5: {
+          fontSize: '1.2rem',
+          fontWeight: 600
+        },
+        h6: {
+          fontSize: '1.1rem',
+        },
+      },
+    },
+    MuiChip: {
+      defaultProps: {
+        style: {
+          borderRadius: '0.3rem',
+        }
+      },
+    },
   }
 };
 

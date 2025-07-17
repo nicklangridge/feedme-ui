@@ -51,7 +51,7 @@ export default function ReleasesList() {
           { releasesQuery.isFetchingNextPage ? (
             <Spinner />
           ) : (
-            <Button variant="contained" onClick={() => releasesQuery.fetchNextPage()}>
+            <Button variant="contained" color="secondary" onClick={() => releasesQuery.fetchNextPage()}>
               Feed me more
             </Button>
           )}
