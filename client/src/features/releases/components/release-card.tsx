@@ -6,8 +6,8 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 import { type Release } from '@/types/api';
+import { cardSize } from '@/theme';
 
-const cardSize = 320;
 
 export default function ReleaseCard(release: Release) {
   return (

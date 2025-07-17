@@ -6,14 +6,7 @@ import { useReleases } from '../api/get-releases';
 import Spinner from '@/components/ui/spinner';
 import ReleaseCard from '../components/release-card';
 import { type Release } from '@/types/api';
-
-// todo: move to config or theme
-const cardSize = 320;
-const gutterSize = 16; 
-
-function gridWidth(cols: number): number {
-  return (cardSize * cols) + (gutterSize * (cols - 1));
-}
+import { cardSize, gutterSize, constrainedGridWidth } from '@/theme';
 
 const MasonryCard = ({ data }: RenderComponentProps<Release>) => ( <ReleaseCard {...data} /> ); 
 
@@ -28,13 +21,7 @@ export default function ReleasesList() {
 
   return (
     <>
-      <Box sx={{ 
-        margin: '0 auto',
-        [`@media (min-width: ${gridWidth(4)}px)`]: { width: `${gridWidth(4)}px` },
-        [`@media (max-width: ${gridWidth(4)}px)`]: { width: `${gridWidth(3)}px` },
-        [`@media (max-width: ${gridWidth(3)}px)`]: { width: `${gridWidth(2)}px` },
-        [`@media (max-width: ${gridWidth(2)}px)`]: { width: `${gridWidth(1)}px` }
-      }}>
+      <Box sx={{ margin: '0 auto', ...constrainedGridWidth }}>
         <Masonry 
           items={releases}
           render={MasonryCard}
