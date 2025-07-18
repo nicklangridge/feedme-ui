@@ -7,17 +7,34 @@ import Spinner from '@/components/ui/spinner';
 import ReleaseCard from '../components/release-card';
 import { type Release } from '@/types/api';
 import { cardSize, gutterSize, constrainedGridWidth } from '@/theme';
+import Typography from '@mui/material/Typography';
 
 const MasonryCard = ({ data }: RenderComponentProps<Release>) => ( <ReleaseCard {...data} /> ); 
+
+function Loading() {
+  return (
+    <Spinner />
+  );
+}
+
+function NoReleases() {
+  return (
+    <Box sx={{ margin: '0 auto', ...constrainedGridWidth }}>
+      <Typography variant="h5" component="div" sx={{ textAlign: 'center', marginTop: 4 }}>
+        No releases to show
+      </Typography>
+    </Box>
+  );
+}
 
 export default function ReleasesList() {
   const releasesQuery = useReleases({});
 
-  if (releasesQuery.isLoading) return (<Spinner />);
+  if (releasesQuery.isLoading) return Loading();
 
   const releases = releasesQuery.data?.pages.flatMap((page) => page.data.albums);
 
-  if (!releases?.length) return (<div>No releases to show</div>);
+  if (!releases?.length) return NoReleases();
 
   return (
     <>

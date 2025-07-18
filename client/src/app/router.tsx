@@ -29,9 +29,13 @@ const createAppRouter = () =>
           element: <ReleasesRoute />,
         },
         {
+          path: paths.feed.path,
+          element: <ReleasesRoute />,
+        },
+        {
           path: paths.release.path,
           element: <ReleaseRoute />,
-        },
+        },        
         {
           path: '*',
           element: <NotFoundRoute />,

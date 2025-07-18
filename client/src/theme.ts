@@ -84,6 +84,10 @@ export const themeOptions: ThemeOptions = {
     },
     MuiTypography: {
       styleOverrides: {
+        h1: {
+          fontSize: '2rem',
+          fontWeight: 600
+        },
         h5: {
           fontSize: '1.2rem',
           fontWeight: 600

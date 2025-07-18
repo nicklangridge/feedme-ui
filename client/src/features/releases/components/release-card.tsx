@@ -4,6 +4,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import TimeAgo from 'react-timeago';
 
 import { type Release } from '@/types/api';
 import { cardSize } from '@/theme';
@@ -18,13 +19,13 @@ export default function ReleaseCard(release: Release) {
         title={ release.album_name }
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div" sx={{ mb: 0.3 }}>
+        <Typography gutterBottom variant="h5" component="div" sx={{ mb: 0.2 }}>
           { release.album_name }
         </Typography>
         <Typography gutterBottom variant="h6" component="div">
           { release.artist_name }
         </Typography>
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+        <Typography variant="body2" sx={{ color: 'text.secondary', mt: '0.6rem' }}>
           <span style={{ fontStyle: 'italic', fontWeight: 'bold', marginRight: '0.3rem' }}>
             { release.reviews[0].name }
           </span>
@@ -35,8 +36,11 @@ export default function ReleaseCard(release: Release) {
             </p>
           )}
         </Typography>
+        <Typography variant="body2" sx={{ color: 'text.secondary', mt: 2, mb:0, fontStyle: 'normal', fontize : '0.8em' }}>
+          Found <TimeAgo date={release.created} />
+        </Typography>
         { release.genres.length > 0 && (
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2, mb: 0 }}>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2, mb: 0, p: 0 }}>
             { release.genres.map((genre) => (
               <Chip 
                 key={genre.name}
