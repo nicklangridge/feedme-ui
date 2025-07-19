@@ -22,10 +22,10 @@ export const paths = {
   },
   random: {
     path: '/random',
-    getHref: () => '/feeds',
+    getHref: () => '/random',
   },
   release: {
-    path: '/release/:releaseId',
-    getHref: (id: string) => `/release/${id}`,
+    path: '/release/:releaseId/:releaseSlug?',
+    getHref: (id: string, slug?: string) => (`/release/${id}` + (slug ? `/${slug}` : '')),
   },
 } as const;

@@ -5,19 +5,28 @@ import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import TimeAgo from 'react-timeago';
+import { Link as RouterLink } from 'react-router';
+import CardActionArea from '@mui/material/CardActionArea';
 
 import { type Release } from '@/types/api';
 import { cardSize } from '@/theme';
+import { paths } from '@/config/paths';
 
 
 export default function ReleaseCard(release: Release) {
   return (
     <Card sx={{ width: cardSize }}>
-      <CardMedia
-        sx={{ width: cardSize, height: cardSize }}
-        image={ release.image}
-        title={ release.album_name }
-      />
+      <CardActionArea
+        component={ RouterLink }
+        to={ paths.release.getHref(release.album_id, release.album_slug) }
+        sx={{ textDecoration: 'none', color: 'inherit' }}
+      >
+        <CardMedia
+          sx={{ width: cardSize, height: cardSize }}
+          image={ release.image}
+          title={ release.album_name }
+        />
+      </CardActionArea>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div" sx={{ mb: 0.2 }}>
           { release.album_name }
