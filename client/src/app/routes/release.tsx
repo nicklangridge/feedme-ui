@@ -1,7 +1,11 @@
+import { useParams } from 'react-router';
+import ReleaseDetail from '@/features/releases/components/release-detail';
+
 const ReleaseRoute = () => {
+  const params = useParams();
   return (
     <>
-      <h1>Release details</h1>
+      <ReleaseDetail releaseId={ Number(params.releaseId) } />
     </>
   );
 };

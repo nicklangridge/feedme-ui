@@ -20,7 +20,7 @@ export type Release = {
   artist_name: string;
   artist_slug: string;
   artist_uri: string;
-  created: string;
+  created?: string;
   image: string;
   genres: Genre[];
   reviews: Review[];
