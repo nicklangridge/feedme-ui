@@ -1,13 +1,13 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { Masonry, type RenderComponentProps } from "masonic";
 import Typography from '@mui/material/Typography';
+import { Masonry, type RenderComponentProps } from "masonic";
 
 import Spinner from '@/components/ui/spinner';
-import { useReleases } from '../api/get-releases';
 import ReleaseCard from '../components/release-card';
-import { type Release } from '@/types/api';
+import { useReleases } from '../api/get-releases';
 import { cardSize, gutterSize } from '@/theme';
+import { type Release } from '@/types/api';
 
 const MasonryCard = ({ data }: RenderComponentProps<Release>) => ( <ReleaseCard {...data} /> ); 
 
@@ -25,11 +25,18 @@ function NoReleases() {
   );
 }
 
-export default function ReleasesList() {
-  const releasesQuery = useReleases({});
+interface ReleasesListProps {
+  genre?: string;
+  feed?: string;
+}
+
+export default function ReleasesList({ genre, feed }: ReleasesListProps) {
+  console.log('ReleasesList genre/feed', genre, '/', feed);
+  const releasesQuery = useReleases({ genres: genre, feeds: feed });
 
   if (releasesQuery.isLoading) return Loading();
-
+  
+  // TODO: use Masonry infinite loader https://www.npmjs.com/package/masonic#useinfiniteloaderloadmoreitems-options 
   const releases = releasesQuery.data?.pages.flatMap((page) => page.data.albums);
 
   if (!releases?.length) return NoReleases();

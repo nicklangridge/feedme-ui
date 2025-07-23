@@ -5,11 +5,11 @@ export const paths = {
     getHref: () => '/',
   },
   genre: {
-    path: '/genre/:genereId',
+    path: '/genre/:genre',
     getHref: (id: string) => `/genre/${id}`,
   },
   feed: {
-    path: '/feed/:feedId',
+    path: '/feed/:feed',
     getHref: (id: string) => `/feed/${id}`,
   },
   genres: {

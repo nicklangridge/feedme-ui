@@ -1,12 +1,12 @@
 import Card from '@mui/material/Card';
+import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import TimeAgo from 'react-timeago';
 import { Link as RouterLink } from 'react-router';
-import CardActionArea from '@mui/material/CardActionArea';
+import TimeAgo from 'react-timeago';
 
 import { type Release } from '@/types/api';
 import { cardSize } from '@/theme';
@@ -34,20 +34,24 @@ export default function ReleaseCard(release: Release) {
         <Typography gutterBottom variant="h6" component="div">
           { release.artist_name }
         </Typography>
-        <Typography variant="body2" sx={{ color: 'text.secondary', mt: '0.6rem' }}>
-          <span style={{ fontStyle: 'italic', fontWeight: 'bold', marginRight: '0.3rem' }}>
-            { release.reviews[0].name }
-          </span>
-          { release.reviews[0].snippet || 'No preview available' }
-          { release.reviews.length > 1 && (
-            <p style={{ fontStyle: 'italic', marginTop: '0.2rem', marginBottom: 0 }}>
-              + { release.reviews.length - 1 } more review{ release.reviews.length > 2 ? 's' : '' }
-            </p>
-          )}
-        </Typography>
-        <Typography variant="body2" sx={{ color: 'text.secondary', mt: 2, mb:0, fontStyle: 'normal', fontize : '0.8em' }}>
-          Found <TimeAgo date={release.created} />
-        </Typography>
+        { release.reviews[0] && (
+          <Typography variant="body2" component="div" sx={{ color: 'text.secondary', mt: '0.6rem' }}>
+            <span style={{ fontStyle: 'italic', fontWeight: 'bold', marginRight: '0.3rem' }}>
+              { release.reviews[0].name }
+            </span>
+            { release.reviews[0].snippet || 'No preview available' }
+            { release.reviews.length > 1 && (
+              <p style={{ fontStyle: 'italic', marginTop: '0.2rem', marginBottom: 0 }}>
+                + { release.reviews.length - 1 } more review{ release.reviews.length > 2 ? 's' : '' }
+              </p>
+            )}
+          </Typography>
+        )}
+        { release.created && (
+          <Typography variant="body2" sx={{ color: 'text.secondary', mt: 2, mb:0, fontStyle: 'normal', fontize : '0.8em' }}>
+            Found <TimeAgo date={release.created} />
+          </Typography>
+        )}
         { release.genres.length > 0 && (
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2, mb: 0, p: 0 }}>
             { release.genres.map((genre) => (
@@ -56,7 +60,9 @@ export default function ReleaseCard(release: Release) {
                 label={genre.name}
                 size="small"
                 color="secondary"
-                onClick={()=>1}
+                component={ RouterLink }
+                clickable
+                to={ paths.genre.getHref(genre.slug) }
               />
             ))}
           </Box>
