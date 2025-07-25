@@ -2,7 +2,7 @@ import { type ThemeOptions, createTheme } from "@mui/material/styles";
 import { type SystemStyleObject } from "@mui/system";
 
 export const cardSize = 320;
-export const CardSizeXs = 420;
+export const CardSizeXs = 360;
 export const gutterSize = 16; 
 
 function gridWidth(cols: number): number {
