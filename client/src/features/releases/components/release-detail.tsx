@@ -37,11 +37,11 @@ type ReleaseDetailProps = {
 };
 
 function navigateBack(navigate: ReturnType<typeof useNavigate>) {
-  // if (document.referrer != "") {
-  //   navigate(-1);
-  // } else {
+  if (document.referrer != "") {
+    navigate(-1);
+  } else {
     navigate(paths.home.getHref());
-  //}
+  }
 }
 
 export default function ReleaseDetail({ releaseId }: ReleaseDetailProps) {
@@ -58,11 +58,11 @@ export default function ReleaseDetail({ releaseId }: ReleaseDetailProps) {
   
   return (
     <>
-      <Box sx={{ display: 'flex', justifyContent: 'left' }}>
+      <Box sx={{ display: { xs: 'none', sm: 'none', md: 'flex' }, justifyContent: 'left' }}>
         <Button startIcon={<ArrowBackIcon />} onClick={() => navigateBack(navigate)}>Back</Button>
       </Box>
       <Grid container spacing={2}>
-        <Grid size={{xs: 12, sm: 4, md: 4, lg: 4, xl: 6 }}>
+        <Grid size={{xs: 12, sm: 5, md: 5, lg: 4, xl: 6 }}>
           <Card>
             <Box
             component="img"
@@ -85,7 +85,7 @@ export default function ReleaseDetail({ releaseId }: ReleaseDetailProps) {
             </CardActions>
           </Card>
         </Grid>
-        <Grid size={{xs: 12, sm: 8, md: 8, lg: 8, xl: 6 }}>
+        <Grid size={{xs: 12, sm: 7, md: 7, lg: 8, xl: 6 }}>
           <Card>
             <CardContent>
               <Typography variant="h5">
