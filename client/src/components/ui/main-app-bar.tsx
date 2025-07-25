@@ -51,23 +51,23 @@ function slugToDisplayName(slug: string): string {
   ).join(' ');
 }
 
+function NavButton({ to, children, match, location}: { to: string; children: React.ReactNode; match: RegExp; location: string  }) {
+  return (
+    <Button
+      component={RouterLink}
+      to={to}
+      color="inherit"
+      sx={{ fontWeight: location.match(match) ? 'bold' : 'normal' }}
+    >
+      {children}
+    </Button>
+  );
+}
+
 export default function MainAppBar() {  
   const params = useParams(); 
   const hasFilter = Boolean(params.genre || params.feed);
-  const path: string = useLocation().pathname;
-  
-  function NavButton({ to, children, match }: { to: string; children: React.ReactNode; match: RegExp }) {
-    return (
-      <Button
-        component={RouterLink}
-        to={to}
-        color="inherit"
-        sx={{ fontWeight: path.match(match) ? 'bold' : 'normal' }}
-      >
-        {children}
-      </Button>
-    );
-  }
+  const location: string = useLocation().pathname;
   
   return (
     <>
@@ -87,9 +87,9 @@ export default function MainAppBar() {
               <AlbumIcon />
             </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}></Typography>
-            <NavButton to={ paths.home.path } match={ /^\/($|genre\/.+|feed\/.+)/i }>Latest</NavButton>
-            <NavButton to={ paths.feeds.path } match={ /^\/feeds/i }>Feeds</NavButton>
-            <NavButton to={ paths.genres.path } match={ /^\/genres/i }>Genres</NavButton>
+            <NavButton location={location} to={ paths.home.path } match={ /^\/($|genre\/.+|feed\/.+)/i }>Latest</NavButton>
+            <NavButton location={location} to={ paths.feeds.path } match={ /^\/feeds/i }>Feeds</NavButton>
+            <NavButton location={location} to={ paths.genres.path } match={ /^\/genres/i }>Genres</NavButton>
           </Toolbar>
           { params.genre && ( <FilterChip label={ slugToDisplayName(params.genre) } /> ) }
           { params.feed  && ( <FilterChip label={ slugToDisplayName(params.feed) } /> ) }

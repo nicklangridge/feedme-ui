@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
 import Chip from '@mui/material/Chip'; 
 import Grid from '@mui/material/Grid';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
@@ -30,25 +31,25 @@ function NotFound() {
     </Typography>
   );
 }
-
-function Section({ children }: { children: React.ReactNode }) {
-  return (
-    <Box color="inherit" sx={{ px: 2, mb: 2, pt: 2 }}>
-      {children}
-    </Box>
-  );
-}
  
-type Props = {
+type ReleaseDetailProps = {
   releaseId: number;
 };
 
-export default function ReleaseDetail({ releaseId }: Props) {
+function navigateBack(navigate: ReturnType<typeof useNavigate>) {
+  if (document.referrer != "") {
+    navigate(-1);
+  } else {
+    navigate(paths.home.getHref());
+  }
+}
+
+export default function ReleaseDetail({ releaseId }: ReleaseDetailProps) {
   
   const { isPending, error, data } = useRelease({ releaseId });
   const release = data?.data;
   const navigate = useNavigate();
-  
+
   if (isPending) return Loading();
   
   if (error) { /* Handle */ }
@@ -58,83 +59,90 @@ export default function ReleaseDetail({ releaseId }: Props) {
   return (
     <>
       <Box sx={{ display: 'flex', justifyContent: 'left' }}>
-        <Button startIcon={<ArrowBackIcon />} onClick={() => navigate(-1)} sx={{ float: 'right' }}>Back</Button>
+        <Button startIcon={<ArrowBackIcon />} onClick={() => navigateBack(navigate)}>Back</Button>
       </Box>
-      <Card sx={{ padding: { xs: 0, sm: 2 }, position: 'relative' }}>
-        <Grid container spacing={{xs: 0, sm: 2, md: 2, lg: 2, xl: 2 }}>
-          <Grid size={{xs: 12, sm: 4, md: 4, lg: 4, xl: 6 }}>
+      <Grid container spacing={2}>
+        <Grid size={{xs: 12, sm: 4, md: 4, lg: 4, xl: 6 }}>
+          <Card>
             <Box
-              component="img"
-              sx={{ width: '100%', cursor: 'pointer' }}
-              title={ release.album_name }
-              src={ release.image }
-              onClick={() => { window.location.href = release.album_uri }}
-              />
-          </Grid>
-          <Grid size={{xs: 12, sm: 8, md: 8, lg: 8, xl: 6 }}>
-            <Box sx={{ padding: 0 }}>
-              <Section>
-                <Typography gutterBottom variant="h3" component="div" sx={{ mb: 0.2 }}>
-                  { release.album_name }
-                </Typography>
-                <Typography gutterBottom variant="h4" component="div">
-                  { release.artist_name }
-                </Typography>
-              </Section>  
-              <Section>
-                { release.reviews.map((review) => (
-                  <Typography variant="body2" component="div" sx={{ color: 'text.secondary', mt: '0.6rem' }}>
-                    <div style={{ fontStyle: 'italic', fontWeight: 'bold', marginRight: '0.3rem' }}>
-                      { review.name }
-                    </div>
-                    { review.snippet || 'No preview available' }
-                    <br />
-                    <Button href={ review.url } endIcon={<OpenInNewIcon />} target="_blank" rel="noopener noreferrer" color="inherit">
-                      Read more
-                    </Button>
-                  </Typography>
-                ))}
-              </Section>  
-              <Section>
-                { (release.genres.length > 0 || release.reviews.length > 0) && (
-                  <>
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1,  p: 0 }}>
-                      { release.reviews.map((review) => (
-                        <Chip
-                        key={review.name}
-                        label={review.name}
-                        color="secondary"
-                        component={ RouterLink }
-                        clickable
-                        to={ paths.feed.getHref(review.slug) }
-                        icon={<RssFeedIcon />}
-                        />
-                      ))}
-                    </Box>
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2, mb: 0, p: 0 }}>
-                      { release.genres.map((genre) => (
-                        <Chip 
-                        key={genre.name}
-                          label={genre.name}
-                          color="secondary"
-                          component={ RouterLink }
-                          clickable
-                          to={ paths.genre.getHref(genre.slug) }
-                          icon={<SellIcon />}
-                          />
-                      ))}
-                    </Box>
-                  </>
-                )}
-              </Section>
-            </Box>
-          </Grid>
+            component="img"
+            sx={{ width: '100%', cursor: 'pointer' }}
+            title={ release.album_name }
+            src={ release.image }
+            onClick={() => { window.location.href = release.album_uri }}
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h3" component="div" sx={{ mb: 0.2 }}>
+                { release.album_name }
+              </Typography>
+              <Typography gutterBottom variant="h4" component="div" sx={{ mb: 0 }}>
+                by { release.artist_name }
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button startIcon={<PlayCircleIcon />} color="inherit" onClick={() => { window.location.href = release.album_uri }}>Spotify</Button>
+              <Button startIcon={<ShareIcon />} color="inherit" onClick={()=>navigator.share({title: release.album_name, url: location.href })}>Share</Button>
+            </CardActions>
+          </Card>
         </Grid>
-        <CardActions>
-          <Button startIcon={<PlayCircleIcon />} color="inherit" onClick={() => { window.location.href = release.album_uri }}>Spotify</Button>
-          <Button startIcon={<ShareIcon />} color="inherit" onClick={()=>navigator.share({title: release.album_name, url: location.href })}>Share</Button>
-        </CardActions>
-      </Card>
+        <Grid size={{xs: 12, sm: 8, md: 8, lg: 8, xl: 6 }}>
+          <Card>
+            <CardContent>
+              <Typography variant="h5">
+                Reviews
+              </Typography>
+              { release.reviews.map((review) => (
+                <>
+                  <Typography variant="h6" sx={{ mt: 2 }}>
+                    { review.name }
+                  </Typography>
+                  <Typography variant="body2" component="div" sx={{ color: 'text.secondary', mt: '0.6rem' }}>
+                    { review.snippet || 'No preview available' }
+                  </Typography>
+                  <Button href={ review.url } endIcon={<OpenInNewIcon />} target="_blank" rel="noopener noreferrer" color="inherit" variant="contained" size="small" sx={{ mt: 1 }}>
+                    Read more
+                  </Button>
+                </>
+              ))}
+            </CardContent>
+          </Card>
+          { (release.genres.length > 0 || release.reviews.length > 0) && (
+            <Card sx={{ mt: 2 }}>
+              <CardContent>
+                <Typography variant="h5" sx={{ mb: 2 }}>
+                  Tags
+                </Typography>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1,  p: 0 }}>
+                  { release.reviews.map((review) => (
+                    <Chip
+                    key={review.name}
+                    label={review.name}
+                    color="secondary"
+                    component={ RouterLink }
+                    clickable
+                    to={ paths.feed.getHref(review.slug) }
+                    icon={<RssFeedIcon />}
+                    />
+                  ))}
+                </Box>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2, mb: 0, p: 0 }}>
+                  { release.genres.map((genre) => (
+                    <Chip 
+                    key={genre.name}
+                      label={genre.name}
+                      color="secondary"
+                      component={ RouterLink }
+                      clickable
+                      to={ paths.genre.getHref(genre.slug) }
+                      icon={<SellIcon />}
+                      />
+                  ))}
+                </Box>
+              </CardContent>
+            </Card>
+          )}
+        </Grid>
+      </Grid>
     </>
   );
 };
