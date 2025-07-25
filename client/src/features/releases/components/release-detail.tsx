@@ -6,7 +6,6 @@ import CardActions from '@mui/material/CardActions';
 import Chip from '@mui/material/Chip'; 
 import Grid from '@mui/material/Grid';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import Paper from '@mui/material/Paper';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import RssFeedIcon from '@mui/icons-material/RssFeed';
 import SellIcon from '@mui/icons-material/Sell';
@@ -32,6 +31,13 @@ function NotFound() {
   );
 }
 
+function Section({ children }: { children: React.ReactNode }) {
+  return (
+    <Box color="inherit" sx={{ px: 2, mb: 2, pt: 2 }}>
+      {children}
+    </Box>
+  );
+}
  
 type Props = {
   releaseId: number;
@@ -54,8 +60,8 @@ export default function ReleaseDetail({ releaseId }: Props) {
       <Box sx={{ display: 'flex', justifyContent: 'left' }}>
         <Button startIcon={<ArrowBackIcon />} onClick={() => navigate(-1)} sx={{ float: 'right' }}>Back</Button>
       </Box>
-      <Card sx={{ padding: 2, position: 'relative' }}>
-        <Grid container spacing={{xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }}>
+      <Card sx={{ padding: { xs: 0, sm: 2 }, position: 'relative' }}>
+        <Grid container spacing={{xs: 0, sm: 2, md: 2, lg: 2, xl: 2 }}>
           <Grid size={{xs: 12, sm: 4, md: 4, lg: 4, xl: 6 }}>
             <Box
               component="img"
@@ -66,64 +72,66 @@ export default function ReleaseDetail({ releaseId }: Props) {
               />
           </Grid>
           <Grid size={{xs: 12, sm: 8, md: 8, lg: 8, xl: 6 }}>
-            <Paper color="inherit" sx={{ padding: 2, backgroundColor: '#f5f5f5', boxShadow: 'none', borderRadius: 'none' }}>
-              <Typography gutterBottom variant="h3" component="div" sx={{ mb: 0.2 }}>
-                { release.album_name }
-              </Typography>
-              <Typography gutterBottom variant="h4" component="div">
-                { release.artist_name }
-              </Typography>
-            </Paper>  
-            <Paper color="inherit" sx={{ padding: 2, backgroundColor: '#f5f5f5', boxShadow: 'none', borderRadius: 'none', mt: 2 }}>
-              { release.reviews.map((review) => (
-                <Typography variant="body2" component="div" sx={{ color: 'text.secondary', mt: '0.6rem' }}>
-                  <div style={{ fontStyle: 'italic', fontWeight: 'bold', marginRight: '0.3rem' }}>
-                    { review.name }
-                  </div>
-                  { review.snippet || 'No preview available' }
-                  <br />
-                  <Button href={ review.url } endIcon={<OpenInNewIcon />} target="_blank" rel="noopener noreferrer" color="inherit">
-                    Read more
-                  </Button>
+            <Box sx={{ padding: 0 }}>
+              <Section>
+                <Typography gutterBottom variant="h3" component="div" sx={{ mb: 0.2 }}>
+                  { release.album_name }
                 </Typography>
-              ))}
-            </Paper>  
-            <Paper color="inherit" sx={{ padding: 2, backgroundColor: '#f5f5f5', boxShadow: 'none', borderRadius: 'none', mt: 2 }}>
-              { (release.genres.length > 0 || release.reviews.length > 0) && (
-                <>
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1,  p: 0 }}>
-                    { release.reviews.map((review) => (
-                      <Chip
-                      key={review.name}
-                      label={review.name}
-                      color="secondary"
-                      component={ RouterLink }
-                      clickable
-                      to={ paths.feed.getHref(review.slug) }
-                      icon={<RssFeedIcon />}
-                      />
-                    ))}
-                  </Box>
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2, mb: 0, p: 0 }}>
-                    { release.genres.map((genre) => (
-                      <Chip 
-                      key={genre.name}
-                        label={genre.name}
+                <Typography gutterBottom variant="h4" component="div">
+                  { release.artist_name }
+                </Typography>
+              </Section>  
+              <Section>
+                { release.reviews.map((review) => (
+                  <Typography variant="body2" component="div" sx={{ color: 'text.secondary', mt: '0.6rem' }}>
+                    <div style={{ fontStyle: 'italic', fontWeight: 'bold', marginRight: '0.3rem' }}>
+                      { review.name }
+                    </div>
+                    { review.snippet || 'No preview available' }
+                    <br />
+                    <Button href={ review.url } endIcon={<OpenInNewIcon />} target="_blank" rel="noopener noreferrer" color="inherit">
+                      Read more
+                    </Button>
+                  </Typography>
+                ))}
+              </Section>  
+              <Section>
+                { (release.genres.length > 0 || release.reviews.length > 0) && (
+                  <>
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1,  p: 0 }}>
+                      { release.reviews.map((review) => (
+                        <Chip
+                        key={review.name}
+                        label={review.name}
                         color="secondary"
                         component={ RouterLink }
                         clickable
-                        to={ paths.genre.getHref(genre.slug) }
-                        icon={<SellIcon />}
+                        to={ paths.feed.getHref(review.slug) }
+                        icon={<RssFeedIcon />}
                         />
-                    ))}
-                  </Box>
-                </>
-              )}
-            </Paper>
+                      ))}
+                    </Box>
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2, mb: 0, p: 0 }}>
+                      { release.genres.map((genre) => (
+                        <Chip 
+                        key={genre.name}
+                          label={genre.name}
+                          color="secondary"
+                          component={ RouterLink }
+                          clickable
+                          to={ paths.genre.getHref(genre.slug) }
+                          icon={<SellIcon />}
+                          />
+                      ))}
+                    </Box>
+                  </>
+                )}
+              </Section>
+            </Box>
           </Grid>
         </Grid>
         <CardActions>
-          <Button startIcon={<PlayCircleIcon />} color="inherit">Spotify</Button>
+          <Button startIcon={<PlayCircleIcon />} color="inherit" onClick={() => { window.location.href = release.album_uri }}>Spotify</Button>
           <Button startIcon={<ShareIcon />} color="inherit" onClick={()=>navigator.share({title: release.album_name, url: location.href })}>Share</Button>
         </CardActions>
       </Card>

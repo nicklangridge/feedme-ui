@@ -9,20 +9,21 @@ import { Link as RouterLink } from 'react-router';
 import TimeAgo from 'react-timeago';
 
 import { type Release } from '@/types/api';
-import { cardSize } from '@/theme';
+import { cardSize, CardSizeXs } from '@/theme';
 import { paths } from '@/config/paths';
 
+const cardSizes = { xs: CardSizeXs, sm: cardSize };
 
 export default function ReleaseCard(release: Release) {
   return (
-    <Card sx={{ width: cardSize }}>
+    <Card sx={{ width: cardSizes }}>
       <CardActionArea
         component={ RouterLink }
         to={ paths.release.getHref(release.album_id, release.album_slug) }
         sx={{ textDecoration: 'none', color: 'inherit' }}
       >
         <CardMedia
-          sx={{ width: cardSize, height: cardSize }}
+          sx={{ width: cardSizes, height: cardSizes }}
           image={ release.image}
           title={ release.album_name }
         />
