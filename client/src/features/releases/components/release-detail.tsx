@@ -10,6 +10,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import RssFeedIcon from '@mui/icons-material/RssFeed';
@@ -18,11 +19,11 @@ import ShareIcon from '@mui/icons-material/Share';
 import Typography from '@mui/material/Typography';
 import { Link as RouterLink, useNavigate } from 'react-router';
 
+import Snippet from './snippet';
 import Spinner from '@/components/ui/spinner';
 import { useRelease } from '../api/get-release';
 import { paths } from '@/config/paths';
 import { type Release } from '@/types/api';
-import ListItemIcon from '@mui/material/ListItemIcon';
 
 type ReleaseDetailProps = {
   releaseId: number;
@@ -103,12 +104,6 @@ function ReleaseInfo({ release }: { release: Release }) {
         <Button startIcon={<ShareIcon />} color="inherit" onClick={()=>navigator.share({title: release.album_name, url: location.href })}>Share</Button>
       </CardActions>
     </Card>
-  );
-}
-
-function Snippet({ text }: { text: string }) {
-  return (
-    <span>“{ text || "No preview available" }”</span>
   );
 }
 

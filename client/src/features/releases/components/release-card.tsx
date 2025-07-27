@@ -11,6 +11,7 @@ import TimeAgo from 'react-timeago';
 import { type Release } from '@/types/api';
 import { cardSize, CardSizeXs } from '@/theme';
 import { paths } from '@/config/paths';
+import Snippet from './snippet';
 
 const cardSizes = { xs: CardSizeXs, sm: cardSize };
 
@@ -40,7 +41,7 @@ export default function ReleaseCard(release: Release) {
             <span style={{ fontStyle: 'italic', fontWeight: 'bold', marginRight: '0.3rem' }}>
               { release.reviews[0].name }
             </span>
-            { release.reviews[0].snippet || 'No preview available' }
+            <Snippet text={ release.reviews[0].snippet } />
             { release.reviews.length > 1 && (
               <p style={{ fontStyle: 'italic', marginTop: '0.2rem', marginBottom: 0 }}>
                 + { release.reviews.length - 1 } more review{ release.reviews.length > 2 ? 's' : '' }

@@ -4,6 +4,8 @@ import AlbumIcon from '@mui/icons-material/Album';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
+import RssFeedIcon from '@mui/icons-material/RssFeed';
+import SellIcon from '@mui/icons-material/Sell';
 import Slide from '@mui/material/Slide';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography'; 
@@ -24,7 +26,8 @@ function HideOnScroll({ children }: { children: React.ReactElement }) {
   );
 }
 
-function FilterChip({ label }: {label: string} ) {
+function FilterChip({ label, type }: { label: string; type: 'feed' | 'genre' }) {
+  const icon = type === "feed" ? <RssFeedIcon /> : <SellIcon />;
   return (
     <Chip 
       component={RouterLink}
@@ -33,6 +36,7 @@ function FilterChip({ label }: {label: string} ) {
       clickable 
       onDelete={ ()=>{ } }
       sx={{ ...constrainedGridWidth, margin: '0 auto' }}
+      icon={icon}
     />
   )
 }
@@ -91,8 +95,8 @@ export default function MainAppBar() {
             <NavButton location={location} to={ paths.feeds.path } match={ /^\/feeds/i }>Feeds</NavButton>
             <NavButton location={location} to={ paths.genres.path } match={ /^\/genres/i }>Genres</NavButton>
           </Toolbar>
-          { params.genre && ( <FilterChip label={ slugToDisplayName(params.genre) } /> ) }
-          { params.feed  && ( <FilterChip label={ slugToDisplayName(params.feed) } /> ) }
+          { params.genre && ( <FilterChip type="genre" label={ slugToDisplayName(params.genre) } /> ) }
+          { params.feed  && ( <FilterChip type="feed" label={ slugToDisplayName(params.feed) } /> ) }
         </AppBar>
       </HideOnScroll>
       <ContentSpacer hasFilter={ hasFilter } />
