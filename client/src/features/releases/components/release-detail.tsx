@@ -6,6 +6,10 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Chip from '@mui/material/Chip'; 
 import Grid from '@mui/material/Grid';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemButton from '@mui/material/ListItemButton';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import RssFeedIcon from '@mui/icons-material/RssFeed';
@@ -18,6 +22,7 @@ import Spinner from '@/components/ui/spinner';
 import { useRelease } from '../api/get-release';
 import { paths } from '@/config/paths';
 import { type Release } from '@/types/api';
+import ListItemIcon from '@mui/material/ListItemIcon';
 
 type ReleaseDetailProps = {
   releaseId: number;
@@ -101,6 +106,12 @@ function ReleaseInfo({ release }: { release: Release }) {
   );
 }
 
+function Snippet({ text }: { text: string }) {
+  return (
+    <span>“{ text || "No preview available" }”</span>
+  );
+}
+
 function ReleaseReviews({ release }: { release: Release }) {
   if (release.reviews.length <= 0) return null;
   return (
@@ -109,26 +120,25 @@ function ReleaseReviews({ release }: { release: Release }) {
         <Typography variant="h5"> 
           Reviews
         </Typography>
+        <List>
         { release.reviews.map((review) => (
-          <>
-            <Typography variant="h6" sx={{ mt: 2 }}>
-              { review.name }
-            </Typography>
-            <Typography variant="body2" component="div" sx={{ color: 'text.secondary', mt: '0.6rem' }}>
-              { review.snippet || 'No preview available' }
-            </Typography>
-            <Button href={ review.url } endIcon={<OpenInNewIcon />} target="_blank" rel="noopener noreferrer" color="inherit" variant="contained" size="small" sx={{ mt: 1 }}>
-              Read more
-            </Button>
-          </>
+          <ListItem sx={{ p:0, m: 0 }}>
+            <ListItemButton href={review.url} target="_blank" rel="noopener noreferrer">
+              <ListItemText primary={review.name} secondary={ <Snippet text={review.snippet} /> } />
+              <ListItemIcon sx={{ minWidth: 'auto', ml:2, mr: 0 }}>
+                <OpenInNewIcon />
+              </ListItemIcon>
+            </ListItemButton>
+          </ListItem>
         ))}
+        </List>
       </CardContent>
     </Card>
   );
 }
 
 function ReleaseTags({ release }: { release: Release }) {
-  if (release.genres.length <= 0 || release.reviews.length <= 0) return null;
+  if (release.genres.length <= 0 && release.reviews.length <= 0) return null;
   return (
     <Card sx={{ mt: 2 }}>
       <CardContent>
