@@ -38,14 +38,16 @@ export default function ReleaseCard(release: Release) {
             { release.genres.length > 0 && (
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2, mb: 0, p: 0 }}>
                 { release.genres.slice(0, 3).map((genre) => (
-                  <Chip key={genre.name} label={genre.name} size="small" color="secondary" icon={<SellIcon />} />
+                  <Chip key={genre.name} label={genre.name} size="small" color="secondary" icon={<SellIcon />} 
+                  component={ RouterLink } to={ paths.genre.getHref(genre.slug) } />
                 ))}
               </Box>
             )}
             { release.reviews.length > 0 && (
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2, mb: 0, p: 0 }}>
                 { release.reviews.map((review) => (
-                  <Chip key={review.name} label={review.name} size="small" color="secondary" icon={<RssFeedIcon />} />
+                  <Chip key={review.name} label={review.name} size="small" color="secondary" icon={<RssFeedIcon />} 
+                  component={ RouterLink } to={ paths.feed.getHref(review.slug) } />
                 ))}
               </Box>
             )}
