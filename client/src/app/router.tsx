@@ -9,6 +9,8 @@ import {
   ErrorBoundary as RootErrorBoundary,
 } from './routes/root';
 
+import FeedsRoute from './routes/feeds';
+import GenresRoute from './routes/genres';
 import ReleasesRoute from './routes/releases';
 import ReleaseRoute from './routes/release';
 import NotFoundRoute from './routes/not-found';
@@ -35,6 +37,14 @@ const createAppRouter = () =>
         {
           path: paths.release.path,
           element: <ReleaseRoute />,
+        },
+        {
+          path: paths.feeds.path,
+          element: <FeedsRoute />,
+        },
+        {
+          path: paths.genres.path,
+          element: <GenresRoute />,
         },        
         {
           path: '*',

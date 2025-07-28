@@ -4,12 +4,11 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
-import Typography from '@mui/material/Typography';
 import { Link as RouterLink } from 'react-router';
-import TimeAgo from 'react-timeago';
-
 import RssFeedIcon from '@mui/icons-material/RssFeed';
 import SellIcon from '@mui/icons-material/Sell';
+import TimeAgo from 'react-timeago';
+import Typography from '@mui/material/Typography';
 
 import { type Release } from '@/types/api';
 import { paths } from '@/config/paths';
