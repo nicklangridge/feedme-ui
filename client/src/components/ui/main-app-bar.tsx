@@ -14,7 +14,6 @@ import { useLocation, Link as RouterLink, useParams } from 'react-router';
 
 import Chip from '@mui/material/Chip';
 
-import ContentBox from './content-box';
 import { paths } from '@/config/paths';
 
 function HideOnScroll({ children }: { children: React.ReactElement }) {
@@ -35,19 +34,13 @@ function FilterChip({ label, type }: { label: string; type: 'feed' | 'genre' }) 
       to={paths.home.getHref()}
       clickable 
       onDelete={ ()=>{ } }
-      sx={{ margin: '0 auto', width: '200px' }}
+      sx={{ margin: '0 auto' }}
       icon={icon}
     />
   )
 }
 
-function ContentSpacer({ hasFilter }: { hasFilter: boolean }) {
-  return (
-    <Box sx={{ mt: hasFilter ? '7em' : 0 }}></Box>
-  )    
-}
-
-// TODO: fetch the display name instead of using this horrible hack (which doesn't even work for
+// TODO: fetch the display name instead of using this horrible hack (which doesn't work properly for
 // many feed slugs.
 function slugToDisplayName(slug: string): string {
   return slug.toLowerCase().split('-').map(
@@ -77,31 +70,32 @@ export default function MainAppBar() {
     <>
       <HideOnScroll>
         <AppBar  position="fixed" elevation={0} style={{ backgroundColor: '#f5f5f5', boxShadow: 'none'}}>
-          <ContentBox>
-            <Toolbar sx={{ width: '100%', m: '0 auto', px: '0 2' }}  >
-              {/* @ts-expect-error TODO: understand why component=RouterLink not liked by linter */}
-              <IconButton
-                  size="large"
-                  edge="start"
-                  color="inherit"
-                  aria-label="menu"
-                  sx={{ mr: 2 }}
-                  href={ paths.home.path }
-                  component={ RouterLink }
-                >  
-                <AlbumIcon />
-              </IconButton>
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}></Typography>
-              <NavButton location={location} to={ paths.home.path } match={ /^\/($|genre\/.+|feed\/.+)/i }>Latest</NavButton>
-              <NavButton location={location} to={ paths.feeds.path } match={ /^\/feeds/i }>Feeds</NavButton>
-              <NavButton location={location} to={ paths.genres.path } match={ /^\/genres/i }>Genres</NavButton>
-            </Toolbar>
-            { params.genre && ( <FilterChip type="genre" label={ slugToDisplayName(params.genre) } /> ) }
-            { params.feed  && ( <FilterChip type="feed" label={ slugToDisplayName(params.feed) } /> ) }
-          </ContentBox>
+          <Toolbar sx={{ m: '0 auto' }}  >
+            {/* @ts-expect-error TODO: understand why component=RouterLink not liked by linter */}
+            <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                href={ paths.home.path }
+                component={ RouterLink }
+              >  
+              <AlbumIcon />
+            </IconButton>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}></Typography>
+            <NavButton location={location} to={ paths.home.path } match={ /^\/($|genre\/.+|feed\/.+)/i }>Latest</NavButton>
+            <NavButton location={location} to={ paths.feeds.path } match={ /^\/feeds/i }>Feeds</NavButton>
+            <NavButton location={location} to={ paths.genres.path } match={ /^\/genres/i }>Genres</NavButton>
+          </Toolbar>
+          { (params.genre || params.feed) && (
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 0, mb: 1 }}>
+              { params.genre && ( <FilterChip type="genre" label={ slugToDisplayName(params.genre) } /> ) }
+              { params.feed  && ( <FilterChip type="feed" label={ slugToDisplayName(params.feed) } /> ) }
+            </Box>
+          )}
         </AppBar>
       </HideOnScroll>
-      <ContentSpacer hasFilter={ hasFilter } />
+      <Box sx={{ mt: hasFilter ? '7em' : 0 }}></Box>
     </>
   );
 }

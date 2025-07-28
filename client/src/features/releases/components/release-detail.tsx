@@ -65,9 +65,6 @@ export default function ReleaseDetail({ releaseId }: ReleaseDetailProps) {
   
   return (
     <>
-      <Box sx={{ display: { xs: 'none', sm: 'none', md: 'flex' }, justifyContent: 'left' }}>
-        <Button startIcon={<ArrowBackIcon />} onClick={() => navigateBack(navigate)}>Back</Button>
-      </Box>
       <Grid container spacing={2}>
         <Grid size={{xs: 12, sm: 5, md: 5, lg: 4, xl: 6 }}>
           <ReleaseInfo release={release} />
@@ -78,6 +75,9 @@ export default function ReleaseDetail({ releaseId }: ReleaseDetailProps) {
           <ReleaseFeeds release={release} />
         </Grid>
       </Grid>
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+        <Button startIcon={<ArrowBackIcon />} onClick={() => navigateBack(navigate)}>Back</Button>
+      </Box>
     </>
   );
 };
