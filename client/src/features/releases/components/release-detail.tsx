@@ -74,7 +74,8 @@ export default function ReleaseDetail({ releaseId }: ReleaseDetailProps) {
         </Grid>
         <Grid size={{xs: 12, sm: 7, md: 7, lg: 8, xl: 6 }}>
           <ReleaseReviews release={release} />
-          <ReleaseTags release={release} />
+          <ReleaseGenres release={release} />
+          <ReleaseFeeds release={release} />
         </Grid>
       </Grid>
     </>
@@ -132,22 +133,35 @@ function ReleaseReviews({ release }: { release: Release }) {
   );
 }
 
-function ReleaseTags({ release }: { release: Release }) {
-  if (release.genres.length <= 0 && release.reviews.length <= 0) return null;
+function ReleaseGenres({ release }: { release: Release }) {
+  if (release.genres.length <= 0) return null;
   return (
     <Card sx={{ mt: 2 }}>
       <CardContent>
         <Typography variant="h5" sx={{ mb: 2 }}>
-          Tags
+          Genres
+        </Typography>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2, mb: 0, p: 0 }}>
+          { release.genres.map((genre) => (
+            <ReleaseTag label={genre.name} type="genre" to={paths.genre.getHref(genre.slug)} />
+          ))}
+        </Box>
+      </CardContent>
+    </Card>
+  )
+}
+
+function ReleaseFeeds({ release }: { release: Release }) {
+  if (release.reviews.length <= 0) return null;
+  return (
+    <Card sx={{ mt: 2 }}>
+      <CardContent>
+        <Typography variant="h5" sx={{ mb: 2 }}>
+          Feeds
         </Typography>
         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1,  p: 0 }}>
           { release.reviews.map((review) => (
             <ReleaseTag label={review.name} type="feed" to={paths.feed.getHref(review.slug)} />
-          ))}
-        </Box>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2, mb: 0, p: 0 }}>
-          { release.genres.map((genre) => (
-            <ReleaseTag label={genre.name} type="genre" to={paths.genre.getHref(genre.slug)} />
           ))}
         </Box>
       </CardContent>
