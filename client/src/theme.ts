@@ -1,14 +1,4 @@
 import { type ThemeOptions, createTheme } from "@mui/material/styles";
-import { type SystemStyleObject } from "@mui/system";
-
-export const cardSize = 320;
-export const CardSizeXs = 360;
-export const gutterSize = 16; 
-
-function gridWidth(cols: number): number {
-  if (cols === 1) return CardSizeXs;
-  return (cardSize * cols) + (gutterSize * (cols - 1));
-}
 
 export const themeOptions: ThemeOptions = {
   palette: {
@@ -125,12 +115,4 @@ export const themeOptions: ThemeOptions = {
 };
 
 const theme = createTheme(themeOptions);
-
-export const constrainedGridWidth: SystemStyleObject<typeof theme> = {
-  [`@media (min-width: ${gridWidth(4)}px)`]: { width: `${gridWidth(4)}px` },
-  [`@media (max-width: ${gridWidth(4)}px)`]: { width: `${gridWidth(3)}px` },
-  [`@media (max-width: ${gridWidth(3)}px)`]: { width: `${gridWidth(2)}px` },
-  [`@media (max-width: ${gridWidth(2)}px)`]: { width: `${gridWidth(1)}px` }
-};
-
 export default theme;

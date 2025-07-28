@@ -12,25 +12,22 @@ import RssFeedIcon from '@mui/icons-material/RssFeed';
 import SellIcon from '@mui/icons-material/Sell';
 
 import { type Release } from '@/types/api';
-import { cardSize, CardSizeXs } from '@/theme';
 import { paths } from '@/config/paths';
-
-const cardSizes = { xs: CardSizeXs, sm: cardSize };
 
 export default function ReleaseCard(release: Release) {
   return (
-    <Card sx={{ width: cardSizes }}>
+    <Card sx={{ height: '100%' }}>
       <CardActionArea
         component={ RouterLink }
         to={ paths.release.getHref(release.album_id, release.album_slug) }
-        sx={{ textDecoration: 'none', color: 'inherit' }}
+        sx={{ textDecoration: 'none', color: 'inherit', height: '100%' }}
       >
         <CardMedia
-          sx={{ width: cardSizes, height: cardSizes }}
+          sx={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover' }}
           image={ release.image}
           title={ release.album_name }
         />
-        <CardContent>
+        <CardContent sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
           <Typography gutterBottom variant="h3" component="div" sx={{ mb: 0.2 }}>
             { release.album_name }
           </Typography>
@@ -51,11 +48,11 @@ export default function ReleaseCard(release: Release) {
               ))}
             </Box>
           )}
-        { release.created && (
-          <Typography variant="body2" sx={{ color: 'text.secondary', mt: 2, mb:0, fontStyle: 'normal', fontize : '0.8em' }}>
-            Found <TimeAgo date={release.created} />
-          </Typography>
-        )}
+          { release.created && (
+            <Typography variant="body2" sx={{ color: 'text.secondary', mt: 2, mb:0, fontStyle: 'normal', fontSize : '0.8em' }}>
+              Found <TimeAgo date={release.created} />
+            </Typography>
+          )}
         </CardContent>
       </CardActionArea>
     </Card>

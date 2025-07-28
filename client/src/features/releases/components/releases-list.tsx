@@ -1,15 +1,11 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Masonry, type RenderComponentProps } from "masonic";
+import Grid from '@mui/material/Grid';
 
 import Spinner from '@/components/ui/spinner';
 import ReleaseCard from '../components/release-card';
 import { useReleases } from '../api/get-releases';
-import { cardSize, gutterSize } from '@/theme';
-import { type Release } from '@/types/api';
-
-const MasonryCard = ({ data }: RenderComponentProps<Release>) => ( <ReleaseCard {...data} /> ); 
 
 function Loading() {
   return (
@@ -36,22 +32,19 @@ export default function ReleasesList({ genre, feed }: ReleasesListProps) {
 
   if (releasesQuery.isLoading) return Loading();
   
-  // TODO: use Masonry infinite loader https://www.npmjs.com/package/masonic#useinfiniteloaderloadmoreitems-options 
   const releases = releasesQuery.data?.pages.flatMap((page) => page.data.albums);
 
   if (!releases?.length) return NoReleases();
 
   return (
     <>
-      <Masonry 
-        items={releases}
-        render={MasonryCard}
-        columnWidth={cardSize}
-        maxColumnWidth={cardSize}
-        columnGutter={gutterSize}
-        rowGutter={gutterSize}
-        maxColumnCount={4}
-      />
+      <Grid container spacing={2}>
+        { releases.map((release) => (
+          <Grid key={release.album_id} size={{ xs: 6, sm: 6, md: 4, lg: 3, xl: 3 }} >
+            <ReleaseCard {...release} />
+          </Grid>
+        )) }
+      </Grid>
       <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
         { releasesQuery.hasNextPage && (
           <>
