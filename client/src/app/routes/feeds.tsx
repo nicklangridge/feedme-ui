@@ -1,9 +1,10 @@
 import Feeds from '@/features/feeds/components/feeds';
+import { feeds } from '@/config/feeds';
 
 const FeedsRoute = () => {
   return (
     <>
-      <Feeds />
+      <Feeds feeds={feeds} />
     </>
   );
 };

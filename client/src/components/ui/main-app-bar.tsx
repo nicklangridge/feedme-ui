@@ -14,7 +14,7 @@ import useScrollTrigger from '@mui/material/useScrollTrigger';
 import { useLocation, Link as RouterLink, useParams } from 'react-router';
 
 import { paths } from '@/config/paths';
-import { feeds } from '@/config/feeds';
+import { feedSlugToName } from '@/config/feeds';
 
 function HideOnScroll({ children }: { children: React.ReactElement }) {
   const trigger = useScrollTrigger();
@@ -27,7 +27,7 @@ function HideOnScroll({ children }: { children: React.ReactElement }) {
 
 function FilterChip({ slug, type }: { slug: string; type: 'feed' | 'genre' }) {
   const icon = type === "feed" ? <RssFeedIcon /> : <SellIcon />;
-  const label = type === 'feed' ? feeds[slug]?.name || slugToDisplayName(slug) : slugToDisplayName(slug);
+  const label = type === 'feed' ? feedSlugToName.get(slug) || slugToDisplayName(slug) : slugToDisplayName(slug);
   return (
     <Chip 
       component={RouterLink}
