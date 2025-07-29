@@ -22,7 +22,7 @@ export const feeds: FeedConfig[] = [
   {
     "name": "Guardian",
     "slug": "guardian",
-    "homepage_url": "https://www.theguardian.com/music+tone/albumreview",
+    "homepage_url": "https://www.theguardian.com",
     "active": 1
   },
   {
