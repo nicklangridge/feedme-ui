@@ -3,6 +3,7 @@ import AppBar from '@mui/material/AppBar';
 import AlbumIcon from '@mui/icons-material/Album';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Chip from '@mui/material/Chip';
 import IconButton from '@mui/material/IconButton';
 import RssFeedIcon from '@mui/icons-material/RssFeed';
 import SellIcon from '@mui/icons-material/Sell';
@@ -12,9 +13,8 @@ import Typography from '@mui/material/Typography';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import { useLocation, Link as RouterLink, useParams } from 'react-router';
 
-import Chip from '@mui/material/Chip';
-
 import { paths } from '@/config/paths';
+import { feeds } from '@/config/feeds';
 
 function HideOnScroll({ children }: { children: React.ReactElement }) {
   const trigger = useScrollTrigger();
@@ -25,8 +25,9 @@ function HideOnScroll({ children }: { children: React.ReactElement }) {
   );
 }
 
-function FilterChip({ label, type }: { label: string; type: 'feed' | 'genre' }) {
+function FilterChip({ slug, type }: { slug: string; type: 'feed' | 'genre' }) {
   const icon = type === "feed" ? <RssFeedIcon /> : <SellIcon />;
+  const label = type === 'feed' ? feeds[slug]?.name || slugToDisplayName(slug) : slugToDisplayName(slug);
   return (
     <Chip 
       component={RouterLink}
@@ -40,12 +41,8 @@ function FilterChip({ label, type }: { label: string; type: 'feed' | 'genre' }) 
   )
 }
 
-// TODO: fetch the display name instead of using this horrible hack (which doesn't work properly for
-// many feed slugs.
 function slugToDisplayName(slug: string): string {
-  return slug.toLowerCase().split('-').map(
-    (word) => word.charAt(0).toUpperCase() + word.substring(1)
-  ).join(' ');
+  return slug.split('-').join(' ');
 }
 
 function NavButton({ to, children, match, location}: { to: string; children: React.ReactNode; match: RegExp; location: string  }) {
@@ -89,8 +86,8 @@ export default function MainAppBar() {
           </Toolbar>
           { (params.genre || params.feed) && (
             <Box sx={{ display: 'flex', justifyContent: 'center', mt: 0, mb: 1 }}>
-              { params.genre && ( <FilterChip type="genre" label={ slugToDisplayName(params.genre) } /> ) }
-              { params.feed  && ( <FilterChip type="feed" label={ slugToDisplayName(params.feed) } /> ) }
+              { params.genre && ( <FilterChip type="genre" slug={params.genre} /> ) }
+              { params.feed  && ( <FilterChip type="feed" slug={params.feed} /> ) }
             </Box>
           )}
         </AppBar>
