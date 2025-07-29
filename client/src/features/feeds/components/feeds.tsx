@@ -44,7 +44,7 @@ const Feeds = ({ feeds }: FeedsProps ) => {
   return (
     <>
     <Grid container spacing={2}>
-      <Grid size={{xs: 12, sm: 12, md: 6, lg: 6, xl: 6 }}>
+      <Grid size={{xs: 12, sm: 6, md: 6, lg: 6, xl: 6 }}>
         <Card>
           <CardContent>
             <Typography variant="h5"> 
@@ -54,7 +54,7 @@ const Feeds = ({ feeds }: FeedsProps ) => {
           </CardContent>
         </Card>
       </Grid>
-      <Grid size={{xs: 12, sm: 12, md: 6, lg: 6, xl: 6 }}>
+      <Grid size={{xs: 12, sm: 6, md: 6, lg: 6, xl: 6 }}>
         <Card>
           <CardContent>
             <Typography variant="h5"> 
