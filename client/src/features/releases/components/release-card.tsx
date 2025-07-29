@@ -44,7 +44,7 @@ export default function ReleaseCard(release: Release) {
             )}
             { release.reviews.length > 0 && (
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2, mb: 0, p: 0 }}>
-                { release.reviews.map((review) => (
+                { release.reviews.slice(0, 3).map((review) => (
                   <Chip key={review.name} label={review.name} size="small" color="secondary" icon={<RssFeedIcon />} 
                   component={ RouterLink } to={ paths.feed.getHref(review.slug) } />
                 ))}
