@@ -1,7 +1,7 @@
 const Genres = () => {
   return (
     <>
-      <p style={{ textAlign: 'center' }}>TODO: show top genres</p>
+      <p style={{ textAlign: 'center' }}>Todo!</p>
     </>
   );
 };
