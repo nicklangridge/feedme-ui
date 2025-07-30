@@ -32,7 +32,7 @@ function FeedsList({ feeds }: { feeds: FeedConfig[] }) {
             <ListItemIcon>
               <RssFeedIcon />
             </ListItemIcon>
-            <ListItemText primary={feed.name} secondary={feed.homepage_url} />
+            <ListItemText primary={feed.name} secondary={feed.description} />
           </ListItemButton>
         </ListItem>
       ))}

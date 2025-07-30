@@ -3,4 +3,5 @@ export interface FeedConfig {
   slug: string;
   homepage_url: string;
   active: number;
+  description?: string;
 }
