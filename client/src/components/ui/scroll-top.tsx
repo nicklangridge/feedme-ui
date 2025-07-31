@@ -2,7 +2,7 @@ import Fade from '@mui/material/Fade';
 import Box from '@mui/material/Box';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
 import Fab from '@mui/material/Fab';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 export default function ScrollTop() {
   const trigger = useScrollTrigger({
@@ -13,7 +13,7 @@ export default function ScrollTop() {
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     const anchor = (
       (event.target as HTMLDivElement).ownerDocument || document
-    ).querySelector('#back-to-top-anchor');
+    ).querySelector('#scroll-top-anchor');
 
     if (anchor) {
       anchor.scrollIntoView({
@@ -27,10 +27,11 @@ export default function ScrollTop() {
       <Box
         onClick={handleClick}
         role="presentation"
-        sx={{ position: 'fixed', bottom: 16, right: 16 }}
+        sx={{ position: 'fixed', bottom: '1em', right: '2em' }}
+        color="secondary"
       >
         <Fab size="small" aria-label="Back to top">
-          <KeyboardArrowUpIcon />
+          <ArrowUpwardIcon />
         </Fab>
       </Box>
     </Fade>

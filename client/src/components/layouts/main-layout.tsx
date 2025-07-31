@@ -8,7 +8,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <CssBaseline />
-      <div id="back-to-top-anchor" />
+      <div id="scroll-top-anchor" />
       <MainAppBar />
       <Container maxWidth={'xl'}  sx={{ mt: 8, mb: 4, contentJustify: 'center', }}>
         {children}

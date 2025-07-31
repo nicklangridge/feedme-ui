@@ -1,6 +1,16 @@
+import "@fontsource/nunito-sans/index.css";
 import { type ThemeOptions, createTheme } from "@mui/material/styles";
 
+// Get default shadows so we can override them - feels hacky, better way?
+const defaultTheme = createTheme();
+const defaultShadows: ThemeOptions['shadows'] = [...defaultTheme.shadows];
+
 export const themeOptions: ThemeOptions = {
+  typography: {
+    fontFamily: 'Nunito Sans, Roboto, sans-serif',
+    fontSize: 14
+  },
+  shadows: defaultShadows.map(() => 'none') as ThemeOptions['shadows'],
   palette: {
     mode: 'light',
     primary: {
@@ -27,7 +37,7 @@ export const themeOptions: ThemeOptions = {
       A700: '#616161'
     },
     background: {
-      default: '#f5f5f5',
+      default: '#e9e9e9',
       paper: '#ffffff'
     },
     text: {
@@ -45,10 +55,6 @@ export const themeOptions: ThemeOptions = {
       focus: 'rgba(0, 0, 0, 0.12)'
     }
   },
-  typography: {
-    fontFamily: 'Roboto, sans-serif',
-    fontSize: 14
-  },
   spacing: 8,
   shape: {
     borderRadius: 4
@@ -64,13 +70,20 @@ export const themeOptions: ThemeOptions = {
         disableRipple: true,
       }
     },
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#e9e9e9',
+        }
+      }
+    },
     MuiButton: {
       defaultProps: {
         disableElevation: true,
       },
       styleOverrides: {
         root: {
-          textTransform: 'capitalize'
+          textTransform: 'none'
         }
       }
     },
@@ -106,11 +119,10 @@ export const themeOptions: ThemeOptions = {
     MuiToolbar: {
       defaultProps: {
         style: {
-          backgroundColor: '#f5f5f5',
           margin: '0 auto',
         }
       },
-    },
+    }
   }
 };
 

@@ -36,9 +36,9 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     >
       <ErrorBoundary FallbackComponent={MainErrorFallback}>
         <QueryClientProvider client={queryClient}>
-          {import.meta.env.DEV && <ReactQueryDevtools />}
+          {!import.meta.env.DEV && <ReactQueryDevtools />}
           <ThemeProvider theme={theme}>
-          {children}
+            {children}
           </ThemeProvider>
         </QueryClientProvider>
       </ErrorBoundary>

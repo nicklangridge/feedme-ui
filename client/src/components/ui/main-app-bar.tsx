@@ -66,7 +66,7 @@ export default function MainAppBar() {
   return (
     <>
       <HideOnScroll>
-        <AppBar  position="fixed" elevation={0} style={{ backgroundColor: '#f5f5f5', boxShadow: 'none'}}>
+        <AppBar position="fixed">
           <Toolbar sx={{ m: '0 auto' }}  >
             {/* @ts-expect-error TODO: understand why component=RouterLink not liked by linter */}
             <IconButton
