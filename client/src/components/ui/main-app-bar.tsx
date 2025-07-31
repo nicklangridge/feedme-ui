@@ -1,9 +1,7 @@
 import AppBar from '@mui/material/AppBar';
-import AlbumIcon from '@mui/icons-material/Album';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
-import IconButton from '@mui/material/IconButton';
 import RssFeedIcon from '@mui/icons-material/RssFeed';
 import SellIcon from '@mui/icons-material/Sell';
 import Slide from '@mui/material/Slide';
@@ -68,17 +66,6 @@ export default function MainAppBar() {
       <HideOnScroll>
         <AppBar position="fixed">
           <Toolbar sx={{ m: '0 auto' }}  >
-            {/* @ts-expect-error TODO: understand why component=RouterLink not liked by linter */}
-            <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                href={ paths.home.path }
-                component={ RouterLink }
-              >  
-              <AlbumIcon />
-            </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}></Typography>
             <NavButton location={location} to={ paths.home.path } match={ /^\/($|genre\/.+|feed\/.+)/i }>Latest</NavButton>
             <NavButton location={location} to={ paths.feeds.path } match={ /^\/feeds/i }>Feeds</NavButton>
@@ -86,7 +73,7 @@ export default function MainAppBar() {
             <NavMenu />
           </Toolbar>
           { (params.genre || params.feed) && (
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 0, mb: 1 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 0, mb: 2 }}>
               { params.genre && ( <FilterChip type="genre" slug={params.genre} /> ) }
               { params.feed  && ( <FilterChip type="feed" slug={params.feed} /> ) }
             </Box>
