@@ -24,6 +24,10 @@ export const paths = {
     path: '/random',
     getHref: () => '/random',
   },
+  about: {
+    path: '/about',
+    getHref: () => '/about',
+  },
   release: {
     path: '/release/:releaseId/:releaseSlug?',
     getHref: (id: string, slug?: string) => (`/release/${id}` + (slug ? `/${slug}` : '')),

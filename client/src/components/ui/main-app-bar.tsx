@@ -1,4 +1,3 @@
-
 import AppBar from '@mui/material/AppBar';
 import AlbumIcon from '@mui/icons-material/Album';
 import Box from '@mui/material/Box';
@@ -15,6 +14,7 @@ import { useLocation, Link as RouterLink, useParams } from 'react-router';
 
 import { paths } from '@/config/paths';
 import { feedSlugToName } from '@/config/feeds';
+import NavMenu from './nav-menu';
 
 function HideOnScroll({ children }: { children: React.ReactElement }) {
   const trigger = useScrollTrigger();
@@ -83,6 +83,7 @@ export default function MainAppBar() {
             <NavButton location={location} to={ paths.home.path } match={ /^\/($|genre\/.+|feed\/.+)/i }>Latest</NavButton>
             <NavButton location={location} to={ paths.feeds.path } match={ /^\/feeds/i }>Feeds</NavButton>
             <NavButton location={location} to={ paths.genres.path } match={ /^\/genres/i }>Genres</NavButton>
+            <NavMenu />
           </Toolbar>
           { (params.genre || params.feed) && (
             <Box sx={{ display: 'flex', justifyContent: 'center', mt: 0, mb: 1 }}>

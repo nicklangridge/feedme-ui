@@ -1,7 +1,7 @@
 const Genres = () => {
   return (
     <>
-      <p style={{ textAlign: 'center' }}>Todo!</p>
+      <p style={{ textAlign: 'center' }}>Genres page placeholder</p>
     </>
   );
 };
