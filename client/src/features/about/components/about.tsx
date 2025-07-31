@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 
 const About = () => {
   return (
-    <Card sx={{ width: 500, margin: '0 auto' }}>
+    <Card sx={{ maxWidth: 500, margin: '0 auto' }}>
         <CardContent>
           <Typography variant="h5"> 
             Feed Me Music
