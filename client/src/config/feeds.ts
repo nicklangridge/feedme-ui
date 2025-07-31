@@ -30,12 +30,13 @@ export const feeds: FeedConfig[] = [
     "description": "The Guardian newspaper music section"
   },
   {
-    "name": "Inverted Audio",
-    "slug": "invertedaudio",
-    "homepage_url": "https://inverted-audio.com",
+    "name": "Igloo",
+    "slug": "Igloo",
+    "homepage_url": "https://igloomag.com",
     "active": 1,
-    "description": "London-based magazine and record store spotlighting underground electronic music"
+    "description": "Experimental electronic music magazine"
   },
+  
   {
     "name": "Loud and Quiet",
     "slug": "loudandquiet",
