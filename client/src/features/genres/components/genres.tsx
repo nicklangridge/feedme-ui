@@ -1,10 +1,9 @@
 import Typography from '@mui/material/Typography';
-import { Link as RouterLink, useNavigate } from 'react-router';
+import { Link as RouterLink } from 'react-router';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { TagCloud } from 'react-tagcloud';
 import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
 
 import Spinner from '@/components/ui/spinner';
 import { paths } from '@/config/paths';
@@ -48,9 +47,7 @@ export default function TopGenres() {
   
   const { isPending, error, data } = useTopGenres();
   const genres = data?.data;
-  console.log('Top Genres:', genres);
-  const navigate = useNavigate();
-
+  
   if (isPending) return Loading();
   
   if (error) { /* Handle */ }
