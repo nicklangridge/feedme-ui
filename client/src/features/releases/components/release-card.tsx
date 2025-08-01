@@ -18,7 +18,7 @@ export default function ReleaseCard(release: Release) {
     <Card sx={{ height: '100%' }}>
       <CardActionArea
         component={ RouterLink }
-        to={ paths.release.getHref(release.album_id, release.album_slug) }
+        to={ paths.release.getHref(release.album_id, release.artist_slug + '-' + release.album_slug) }
         sx={{ textDecoration: 'none', color: 'inherit', height: '100%' }}
       >
         <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
