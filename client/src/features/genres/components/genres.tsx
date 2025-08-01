@@ -2,7 +2,7 @@ import Typography from '@mui/material/Typography';
 import { Link as RouterLink } from 'react-router';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { TagCloud } from 'react-tagcloud';
+import { TagCloud, type Tag } from 'react-tagcloud';
 import Chip from '@mui/material/Chip';
 
 import Spinner from '@/components/ui/spinner';
@@ -24,24 +24,29 @@ function NotFound() {
   );
 }
 
-function convertTopGenresToTags(genres: TopGenres) {
+function convertTopGenresToTags(genres: TopGenres): Tag[] {
   return genres.map(genre => ({
     value: genre.name,
     count: genre.count,
-    slug: genre.slug,
+    props: { slug: genre.slug },
   }));
 }
 
-const tagRenderer = (tag: { value: string, count: number, slug: string }, size: number, color: string) => (
-  <Chip
-    key={tag.value}
-    label={tag.value}
-    component={RouterLink}
-    clickable
-    to={paths.genre.getHref(tag.slug)}
-    sx={{fontSize: size, margin: 0.75, padding: 1, height: 48, color: color }}
-  />
-)
+type GenreTag = Tag & { props: { slug: string } };
+
+function tagRenderer(tag: Tag, size: number, color: string): React.JSX.Element {
+  const slug = (tag as GenreTag).props.slug;
+  return (
+    <Chip
+      key={tag.value}
+      label={tag.value}
+      component={RouterLink}
+      clickable
+      to={paths.genre.getHref(slug)}
+      sx={{fontSize: size, margin: 0.75, padding: 1, height: 48, color: color }}
+    />
+  )
+}
 
 export default function TopGenres() {
   
@@ -67,6 +72,7 @@ export default function TopGenres() {
             tags={convertTopGenresToTags(genres)} 
             colorOptions={{ luminosity: 'dark', hue: 'monochrome' }}
             renderer={tagRenderer}
+            /* @ts-expect-error: style *should* be allowed */
             style={{ marginTop: '1em', display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}
           />
         </CardContent>
