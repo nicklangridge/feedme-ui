@@ -1,9 +1,79 @@
-const Genres = () => {
+import Typography from '@mui/material/Typography';
+import { Link as RouterLink, useNavigate } from 'react-router';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import { TagCloud } from 'react-tagcloud';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
+
+import Spinner from '@/components/ui/spinner';
+import { paths } from '@/config/paths';
+import { type TopGenres } from '@/types/api';
+import { useTopGenres } from '@/features/feeds/api/get-genres';
+
+function Loading() {
+  return (
+    <Spinner />
+  );
+}
+
+function NotFound() {
+  return (
+    <Typography variant="h5" component="div" sx={{ textAlign: 'center', marginTop: 4 }}>
+      No genres found
+    </Typography>
+  );
+}
+
+function convertTopGenresToTags(genres: TopGenres) {
+  return genres.map(genre => ({
+    value: genre.name,
+    count: genre.count,
+    slug: genre.slug,
+  }));
+}
+
+const tagRenderer = (tag: { value: string, count: number, slug: string }, size: number, color: string) => (
+  <Chip
+    key={tag.value}
+    label={tag.value}
+    component={RouterLink}
+    clickable
+    to={paths.genre.getHref(tag.slug)}
+    sx={{fontSize: size, margin: 0.75, padding: 1, height: 48, color: color }}
+  />
+)
+
+export default function TopGenres() {
+  
+  const { isPending, error, data } = useTopGenres();
+  const genres = data?.data;
+  console.log('Top Genres:', genres);
+  const navigate = useNavigate();
+
+  if (isPending) return Loading();
+  
+  if (error) { /* Handle */ }
+  
+  if (!genres) return NotFound();
+  
   return (
     <>
-      <p style={{ textAlign: 'center' }}>Genres page placeholder</p>
+      <Card>
+        <CardContent>
+          <Typography variant="h5" component="div">
+            Top 50 Genres
+          </Typography>
+          <TagCloud 
+            minSize={14}
+            maxSize={40}
+            tags={convertTopGenresToTags(genres)} 
+            colorOptions={{ luminosity: 'dark', hue: 'monochrome' }}
+            renderer={tagRenderer}
+            style={{ marginTop: '1em', display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}
+          />
+        </CardContent>
+      </Card>
     </>
   );
 };
-
-export default Genres;

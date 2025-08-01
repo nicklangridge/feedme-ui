@@ -35,3 +35,11 @@ export type Meta = {
   total: number;
   totalPages: number;
 };
+
+export type TopGenre = {
+  name: string;
+  slug: string;
+  count: number;
+}
+
+export type TopGenres = TopGenre[];
