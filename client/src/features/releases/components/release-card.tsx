@@ -32,7 +32,7 @@ export default function ReleaseCard(release: Release) {
               { release.album_name }
             </Typography>
             <Typography gutterBottom variant="h6" component="div" sx={{ mb: 0 }}>
-              by { release.artist_name }
+              { release.artist_name }
             </Typography>
             { release.genres.length > 0 && (
               <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2, mb: 0, p: 0 }}>
