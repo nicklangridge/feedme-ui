@@ -44,11 +44,11 @@ function NotFound() {
 }
  
 function navigateBack(navigate: ReturnType<typeof useNavigate>) {
-  if (document.referrer != "") {
+  //if (document.referrer != "") {
     navigate(-1);
-  } else {
-    navigate(paths.home.getHref());
-  }
+  //} else {
+  //  navigate(paths.home.getHref());
+  //}
 }
 
 export default function ReleaseDetail({ releaseId }: ReleaseDetailProps) {
