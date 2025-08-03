@@ -2,9 +2,10 @@ html {
     overflow-y:scroll;
 }
 
-.lastfm-artist-bio a {
-    color: var(--color-link);
+.lastfm-artist-bio a { 
+  color: var(--color-link)
 }
-.lastfm-artist-bio a:visited {
-    color: var(--color-link);
+
+.lastfm-artist-bio a:visited { 
+  color: var(--color-link) 
 }

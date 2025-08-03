@@ -2,6 +2,8 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import DOMPurify from 'dompurify';
+import { useState } from 'react';
+import Link from '@mui/material/Link';
 
 import { useArtistInfo } from '@/features/releases/api/get-artist-info';
 
@@ -21,10 +23,18 @@ export default function ArtistBio({artistName}: { artistName: string }) {
 
   const { isPending, error, data } = useArtistInfo({ artistName });
   const artist = data?.data;
+  const [ showMore, setShowMore ] = useState(false);
   
   if (isPending) return null;
   if (error)     return null;
   if (!artist?.artist?.bio?.content) return null;
+  
+  const charLimit = 600; // Limit the bio to 500 characters
+  let bioHTML = formatBioHTML(artist.artist.bio.content);
+  const hasMore = bioHTML.length > charLimit;
+  if (hasMore && !showMore) {
+    bioHTML = bioHTML.slice(0, charLimit) + '...';
+  }
   
   return (
     <Card sx={{ mt: 2 }}>
@@ -32,9 +42,14 @@ export default function ArtistBio({artistName}: { artistName: string }) {
         <Typography variant="h5" component="div">
           Artist Bio
         </Typography>
-        <Typography variant="body1" component="div" sx={{ mt: 2 }}>
-          <div className="lastfm-artist-bio" dangerouslySetInnerHTML={{ __html: formatBioHTML(artist.artist.bio.content) }} />
+        <Typography className="lastfm-artist-bio" variant="body1" component="div" sx={{ mt: 1 }}>
+          <div dangerouslySetInnerHTML={{ __html: bioHTML }} />
         </Typography>
+        { hasMore && (
+          <Link onClick={() => setShowMore(!showMore)} sx={{ mt: 2, cursor: 'pointer' }}>
+            Show {showMore ? 'less' : 'more'}...
+          </Link>
+        )}
       </CardContent>
     </Card>
   );
