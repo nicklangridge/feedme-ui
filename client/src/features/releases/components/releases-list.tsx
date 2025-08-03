@@ -27,7 +27,6 @@ interface ReleasesListProps {
 }
 
 export default function ReleasesList({ genre, feed }: ReleasesListProps) {
-  console.log('ReleasesList genre/feed', genre, '/', feed);
   const releasesQuery = useReleases({ genres: genre, feeds: feed });
 
   if (releasesQuery.isLoading) return Loading();

@@ -24,6 +24,7 @@ import Spinner from '@/components/ui/spinner';
 import { useRelease } from '../api/get-release';
 import { paths } from '@/config/paths';
 import { type Release } from '@/types/api';
+import ArtistBio from './artist-bio';
 
 type ReleaseDetailProps = {
   releaseId: number;
@@ -73,6 +74,7 @@ export default function ReleaseDetail({ releaseId }: ReleaseDetailProps) {
           <ReleaseReviews release={release} />
           <ReleaseGenres release={release} />
           <ReleaseFeeds release={release} />
+          <ArtistBio artistName={release.artist_name} />
         </Grid>
       </Grid>
       <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
@@ -118,7 +120,7 @@ function ReleaseReviews({ release }: { release: Release }) {
         </Typography>
         <List>
         { release.reviews.map((review) => (
-          <ListItem sx={{ p:0, m: 0 }}>
+          <ListItem sx={{ p:0, m: 0 }} key={review.slug}>
             <ListItemButton href={review.url} target="_blank" rel="noopener noreferrer">
               <ListItemText primary={review.name} secondary={ <Snippet text={review.snippet} /> } />
               <ListItemIcon sx={{ minWidth: 'auto', ml:2, mr: 0 }}>
@@ -143,7 +145,7 @@ function ReleaseGenres({ release }: { release: Release }) {
         </Typography>
         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 2, mb: 0, p: 0 }}>
           { release.genres.map((genre) => (
-            <ReleaseTag label={genre.name} type="genre" to={paths.genre.getHref(genre.slug)} />
+            <ReleaseTag label={genre.name} type="genre" key={genre.slug} to={paths.genre.getHref(genre.slug)} />
           ))}
         </Box>
       </CardContent>
@@ -161,7 +163,7 @@ function ReleaseFeeds({ release }: { release: Release }) {
         </Typography>
         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1,  p: 0 }}>
           { release.reviews.map((review) => (
-            <ReleaseTag label={review.name} type="feed" to={paths.feed.getHref(review.slug)} />
+            <ReleaseTag label={review.name} key={review.slug} type="feed" to={paths.feed.getHref(review.slug)} />
           ))}
         </Box>
       </CardContent>
