@@ -36,7 +36,13 @@ export const feeds: FeedConfig[] = [
     "active": 1,
     "description": "Experimental electronic music magazine"
   },
-  
+  {
+    "name": "Inverted Audio",
+    "slug": "invertedaudio",
+    "homepage_url": "https://inverted-audio.com",
+    "active": 1,
+    "description": "Independent online music magazine"
+  },
   {
     "name": "Loud and Quiet",
     "slug": "loudandquiet",
