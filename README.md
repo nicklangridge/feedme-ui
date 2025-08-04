@@ -21,3 +21,7 @@ npm run dev
 ### Server
 
 The server is in a separate repo: https://github.com/nicklangridge/feedme
+
+## WIP
+
+This is very much work-in-progress and there's plenty to fix, add, and improve. Please raise a GitHub issue if you have a suggestion or want to report a bug.
