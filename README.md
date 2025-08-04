@@ -10,7 +10,7 @@ http://feedmemusic.app
 
 ### UI
 
-This is a Vite/Typescript/React app.
+This is a Vite/TypeScript/React app.
 
 ```
 cd client
