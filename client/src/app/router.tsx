@@ -11,6 +11,7 @@ import {
 
 import FeedsRoute from './routes/feeds';
 import GenresRoute from './routes/genres';
+import GenresExploreRoute from './routes/genres-explore';
 import ReleasesRoute from './routes/releases';
 import ReleaseRoute from './routes/release';
 import AboutRoute from './routes/about';
@@ -46,6 +47,10 @@ const createAppRouter = () =>
         {
           path: paths.genres.path,
           element: <GenresRoute />,
+        },
+                {
+          path: paths.genres_explore.path,
+          element: <GenresExploreRoute />,
         },
         {
           path: paths.about.path,

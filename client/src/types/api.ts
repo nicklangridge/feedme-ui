@@ -1,4 +1,4 @@
-export type Genre = {
+export type ReleaseGenre = {
   name: string;
   parent: string | null;
   slug: string;
@@ -22,7 +22,7 @@ export type Release = {
   artist_uri: string;
   created?: string;
   image: string;
-  genres: Genre[];
+  genres: ReleaseGenre[];
   reviews: Review[];
 }
 
@@ -36,10 +36,16 @@ export type Meta = {
   totalPages: number;
 };
 
-export type TopGenre = {
+export type Genre = {
   name: string;
   slug: string;
   count: number;
 }
 
+export type TopGenre = Genre;
 export type TopGenres = TopGenre[];
+
+export type RelatedGenres = {
+  genre: Genre;
+  related: Genre[];
+}

@@ -16,6 +16,10 @@ export const paths = {
     path: '/genres',
     getHref: () => '/genres',
   },
+  genres_explore: {
+    path: '/genres/explore/:exploreGenre',
+    getHref: (exploreGenre: string) => `/genres/explore/${exploreGenre}`,
+  },
   feeds: {
     path: '/feeds',
     getHref: () => '/feeds',

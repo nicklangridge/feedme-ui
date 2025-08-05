@@ -47,7 +47,7 @@ const Feeds = ({ feeds }: FeedsProps ) => {
       <Grid size={{xs: 12, sm: 6, md: 6, lg: 6, xl: 6 }}>
         <Card>
           <CardContent>
-            <Typography variant="h5"> 
+            <Typography variant="h5" sx={{ textAlign: 'center' }}> 
               Active Feeds
             </Typography> 
             <FeedsList feeds={ feeds.filter(feed => feed.active) } />
@@ -57,7 +57,7 @@ const Feeds = ({ feeds }: FeedsProps ) => {
       <Grid size={{xs: 12, sm: 6, md: 6, lg: 6, xl: 6 }}>
         <Card>
           <CardContent>
-            <Typography variant="h5"> 
+            <Typography variant="h5" sx={{ textAlign: 'center' }}> 
               Archived Feeds
             </Typography> 
             <FeedsList feeds={ feeds.filter(feed => !feed.active) } />

@@ -6,7 +6,7 @@ const About = () => {
   return (
     <Card sx={{ maxWidth: 500, margin: '0 auto' }}>
         <CardContent>
-          <Typography variant="h5"> 
+          <Typography variant="h5" sx={{ textAlign: 'center' }}> 
             About
           </Typography> 
           <p>
