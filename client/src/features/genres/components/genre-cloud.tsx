@@ -17,7 +17,7 @@ function convertGenresToTags(genres: TopGenres): Tag[] {
     value: genre.name,
     count: genre.count,
     props: { slug: genre.slug },
-  }));
+  })).sort((a, b) => a.value.localeCompare(b.value));
 }
 
 export default function GenreCloud({ genres, action }: GenreCloudProps): React.JSX.Element {
@@ -39,7 +39,8 @@ export default function GenreCloud({ genres, action }: GenreCloudProps): React.J
   return (
     <TagCloud 
       minSize={14}
-      maxSize={40}
+      maxSize={30}
+      shuffle={false}
       tags={convertGenresToTags(genres)} 
       colorOptions={{ luminosity: 'dark', hue: 'monochrome' }}
       renderer={tagRenderer}
