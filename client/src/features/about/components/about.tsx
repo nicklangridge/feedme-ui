@@ -1,6 +1,8 @@
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import Button from "@mui/material/Button";
 
 const About = () => {
   return (
@@ -18,6 +20,11 @@ const About = () => {
           <p>
             This is a non-commercial hobby project and is run on a best-effort basis. 
           </p>
+          <div style={{ textAlign: 'center' }}>
+            <Button startIcon={<OpenInNewIcon />} size="small" onClick={() => window.open("https://github.com/nicklangridge", "_blank")}>
+              I made this
+            </Button>
+          </div>
       </CardContent>
     </Card>
   );
